@@ -12,7 +12,8 @@ It is a website built on the mean stack (minus angular). Node, express, mongoose
     * Transaction: Account, Type, Amount, Companion Accounts {which account, type, amount}
 
 
-`Routes
+```
+Routes
 ............................
 companies/:id/accounts/:id
 
@@ -49,4 +50,4 @@ DESTROY     /companies/:id
             /companies/:id/accounts/:id
             /companies/:id/accounts/:id/transactions/:id
             /users/:id
-`
+```
