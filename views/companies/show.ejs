@@ -1,0 +1,30 @@
+<% include ../partials/header %>
+
+<div class="container">
+<h1>Show template</h1>
+
+<p>
+    <%= company.name %>
+</p>
+
+<p>
+    <%= company.balance %>
+</p>
+
+<p>
+    <%= company.description %>
+</p>
+<p>
+    <a class="btn btn-success" href="/companies/<%= company._id %>/comments/new">Add new comment</a>
+</p>
+</div>
+
+<% company.comments.forEach(function(comment){ %>
+    <p>
+        <strong>
+            <%= comment.author %>
+        </strong> - <%= comment.text %></p>
+    
+<% }); %>
+
+<% include ../partials/footer %>

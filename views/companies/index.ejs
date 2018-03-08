@@ -1,4 +1,6 @@
-<% include partials/header %>
+<% include ../partials/header %>
+
+    
 
 <div class="container">
     <header class="jumbotron">
@@ -12,12 +14,15 @@
     
     
     <div class="row" style="display:flex; flex-wrap: wrap;">
-        <% companies.forEach(function(companies){ %>
+        <% companies.forEach(function(company){ %>
             <div class="col-md-3 col-sm-6">
-                <h4>Name: <%= companies.name %></h4>
-                <h5>Balance: <%= companies.balance %></h5>
-                
+                <h4>Name: <%= company.name %></h4>
+                <h5>Balance: <%= company.balance %></h5>
+                <p>
+                <a href="/companies/<%= company._id %>" class="btn btn-primary">Accounts</a>
+            </p>
             </div>
+            
         <% }); %>
     </div>
     
@@ -26,4 +31,4 @@
     
 </div>
 
-<% include partials/footer %>
+<% include ../partials/footer %>
