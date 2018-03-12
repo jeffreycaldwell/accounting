@@ -3,6 +3,13 @@ var companySchema = new mongoose.Schema({
     name: String,
     balance: String,
     description: String,
+    accounts: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Account"
+        }
+        ],
+        
     comments: [
         {
             type: mongoose.Schema.Types.ObjectId,

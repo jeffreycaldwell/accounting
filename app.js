@@ -4,12 +4,14 @@ var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
 var Company = require("./models/company");
 var Comment = require("./models/comment");
+var Account = require("./models/account");
 var seedDB = require("./seeds");
 
 
 seedDB();
 mongoose.connect("mongodb://localhost/accounting");
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.static("public"));
 
 app.set("view engine", "ejs");
 
@@ -61,10 +63,11 @@ app.get("/companies/new", function(req, res){
 app.get("/companies/:id", function(req, res){
     // find the campground with provided ID
     // 
-    Company.findById(req.params.id).populate("comments").exec(function(err, foundCompany){
+    Company.findById(req.params.id).populate("comments accounts").exec(function(err, foundCompany){
         if(err){
             console.log(err);
         } else {
+            
             res.render("companies/show", {company: foundCompany});    
         }
     });
@@ -103,6 +106,92 @@ app.post("/companies/:id/comments", function(req, res){
     // connect new comment to company
     //redirect company show page
 });
+
+///////////// Account routes
+
+app.get("/companies/:id/accounts/new", function(req, res){
+    Company.findById(req.params.id, function(err, company){
+       if(err) {
+           console.log(err);
+       } else {
+           res.render("accounts/new", {company: company});
+       }
+    });
+});
+
+app.post("/companies/:id/accounts", function(req, res){
+    //lookup company using id
+    Company.findById(req.params.id, function(err, company){
+        if(err) {
+            console.log(err);
+            res.redirect("/companies");
+        } else {
+            Account.create(req.body.account, function(err, account){
+                if(err) {
+                    console.log(err);
+                } else {
+                    company.accounts.push(account._id);
+                    company.save();
+                    res.redirect("/companies/" + company._id);
+                }
+            });
+        }
+    });
+    // create new comment
+    // connect new comment to company
+    //redirect company show page
+});
+
+// SHOW - show more info about one campground
+app.get("/companies/:id/journal", function(req, res){
+    // find the campground with provided ID
+    // 
+    // Company.findById(req.params.id).populate("comments accounts").exec(function(err, foundCompany){
+    //     if(err){
+    //         console.log(err);
+    //     } else {
+            
+    //         res.render("companies/show", {company: foundCompany});    
+    //     }
+    // });
+    
+    res.render("journal/show");
+});
+
+app.get("/companies/:id/journal/transactions/new", function(req, res){
+    Company.findById(req.params.id, function(err, company){
+       if(err) {
+           console.log(err);
+       } else {
+           res.render("transactions/new", {company: company});
+       }
+    });
+});
+
+// app.post("/companies/:id/accounts", function(req, res){
+//     //lookup company using id
+//     Company.findById(req.params.id, function(err, company){
+//         if(err) {
+//             console.log(err);
+//             res.redirect("/companies");
+//         } else {
+//             Account.create(req.body.account, function(err, account){
+//                 if(err) {
+//                     console.log(err);
+//                 } else {
+//                     company.accounts.push(account._id);
+//                     company.save();
+//                     res.redirect("/companies/" + company._id);
+//                 }
+//             });
+//         }
+//     });
+//     // create new comment
+//     // connect new comment to company
+//     //redirect company show page
+// });
+
+
 
 app.listen(process.env.PORT, process.env.IP, function(){
     console.log("Account server has started.");

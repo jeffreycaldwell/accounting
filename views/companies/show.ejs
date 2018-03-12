@@ -14,17 +14,35 @@
 <p>
     <%= company.description %>
 </p>
-<p>
-    <a class="btn btn-success" href="/companies/<%= company._id %>/comments/new">Add new comment</a>
-</p>
-</div>
+<!--<p>-->
+<!--    <a class="btn btn-success" href="/companies/<%= company._id %>/comments/new">Add new comment</a>-->
+<!--</p>-->
 
-<% company.comments.forEach(function(comment){ %>
+<p>
+    <a class="btn btn-success" href="/companies/<%= company._id %>/accounts/new">Add new account.</a>
+</p>
+
+<% company.accounts.forEach(function(account){ %>
     <p>
         <strong>
-            <%= comment.author %>
-        </strong> - <%= comment.text %></p>
+            <%= account.name %>
+        </strong> - <%= account.balance %></p>
     
 <% }); %>
+
+<!--<% company.comments.forEach(function(comment){ %>-->
+<!--    <p>-->
+<!--        <strong>-->
+<!--            <%= comment.author %>-->
+<!--        </strong> - <%= comment.text %></p>-->
+    
+<!--<% }); %>-->
+
+</div>
+
+
+
+
+
 
 <% include ../partials/footer %>
