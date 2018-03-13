@@ -185,7 +185,7 @@ app.post("/companies/:id/journal/transactions", function(req, res){
             //         res.redirect("/companies/" + company._id);
             //     }
             // });
-            
+            console.log("wtf");
             console.log(req.body.debit);
             console.log(req.body.credit);
             res.send("Ok");
