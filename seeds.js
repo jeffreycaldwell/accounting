@@ -1,5 +1,6 @@
     var mongoose = require("mongoose");
     var Company = require("./models/company");
+    var Journal = require("./models/journal");
     var Comment   = require("./models/comment");
      
     var data = [
@@ -47,28 +48,31 @@
                     console.log(err);
                 }
                 console.log("removed comments!");
-                 //add a few companies
-                data.forEach(function(seed){
-                    Company.create(seed, function(err, company){
-                        if(err){
-                            console.log(err)
-                        } else {
-                            console.log("added a company");
-                            //create a comment
-                            Comment.create(
-                                {
-                                    text: "This place is great, but I wish there was internet",
-                                    author: "Homer"
-                                }, function(err, comment){
+                Journal.remove({}, function(err) {
+                    if(err){
+                        console.log(err);
+                    }
+                    console.log("removed journals!");
+                    //add a few companies
+                    data.forEach(function(seed){
+                        Company.create(seed, function(err, company){
+                            if(err){
+                                console.log(err)
+                            } else {
+                                console.log("added a company");
+                                var newJournal = {name: company.name, balance: company.balance};
+                                Journal.create(newJournal, function(err, newlyCreatedJournal){
                                     if(err){
-                                        console.log(err);
+                                        console.log("Error creating journal.");
                                     } else {
-                                        company.comments.push(comment._id);
+                                        console.log(newlyCreatedJournal.name);
+                                        company.journal = newlyCreatedJournal;
                                         company.save();
-                                        console.log("Created new comment");
-                                    }
-                                });
-                        }
+                                   }
+                               });
+                                
+                            }
+                        });
                     });
                 });
             });

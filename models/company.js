@@ -3,6 +3,12 @@ var companySchema = new mongoose.Schema({
     name: String,
     balance: String,
     description: String,
+    journal: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Journal"
+        }
+        ],
     accounts: [
         {
             type: mongoose.Schema.Types.ObjectId,

@@ -2,8 +2,7 @@ var mongoose = require("mongoose");
 var journalSchema = new mongoose.Schema({
     name: String,
     balance: String,
-    description: String,
-      
+    
     transactions: [
         {
             type: mongoose.Schema.Types.ObjectId,

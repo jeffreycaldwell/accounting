@@ -16,8 +16,10 @@ var userRoutes = require("./routes/users");
 var commentRoutes = require("./routes/comments");
 var authRoutes = require("./routes/index");
 
-seedDB();
+
 mongoose.connect("mongodb://localhost/accounting");
+app.set("view engine", "ejs");
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 app.use(companyRoutes);
@@ -28,7 +30,7 @@ app.use(userRoutes);
 app.use(commentRoutes);
 app.use(authRoutes);
 
-app.set("view engine", "ejs");
+seedDB();
 
 app.listen(process.env.PORT, process.env.IP, function(){
     console.log("Account server has started.");
