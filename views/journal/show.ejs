@@ -1,19 +1,38 @@
 <% include ../partials/header %>
 
 <div class="container">
-<h1>Show journal page</h1>
-<h2>Journal name is: <%= journal.name %></h2>
-<%= journal.balance %>
-
-<table class="table table-striped table-bordered table-responsive">
-    <tr><th>Description</th><th>Post Reference</th><th>Debit</th><th>Credit</th></tr>
-    <tr><td>Got money!</td><td>101</td><td>1300.00</td><td></td></tr>
-    <tr><td>Got money!</td><td>101</td><td></td><td>(1300.00)</td></tr>
-    <tr><td>Got money!</td><td>101</td><td>1300.00</td><td></td></tr>
-    <tr><td>Got money!</td><td>101</td><td></td><td>(1300.00)</td></tr>
-    <tr><td>Got money!</td><td>101</td><td>1300.00</td><td></td></tr>
-    <tr><td>Got money!</td><td>101</td><td></td><td>(1300.00)</td></tr>
+    <h1>Show journal page</h1>
+    <!--<h2>Journal name is: <%= journal.name %></h2>-->
+    <!--<%= journal.balance %>-->
+</div>
     
-</table>
+<div class="container">
+    
+    <table class="table table-striped table-bordered journal">
+        <thead class="thead-dark">
+            <tr>
+                <th class="journalDescription" scope="col">Description</th>
+                <th class="journalPostRef" scope="col">Post Ref.</th>
+                <th style="text-align: center;" class="journalColumn" scope="col">Debit</th>
+                <th style="text-align: center;" class="journalColumn" scope="col">Credit</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="journalDescription" scope="col">I got some money</td>
+                <td class="journalPostRef" scope="col">100</td>
+                <td class="journalColumn" scope="col">1300.00</td>
+                <td class="journalColumn" scope="col"></td>
+            </tr>
+            <tr>
+                <td class="journalDescription" scope="col">You lost some money</td>
+                <td class="journalPostRef" scope="col">105</td>
+                <td class="journalColumn" scope="col"></td>
+                <td class="journalColumn" scope="col">(1300.00)</td>
+            </tr>
+        </tbody>
+    </table>
+    <a class="btn btn-success" href="/companies/<%= company._id %>/journal/transactions/new">Add new transaction.</a>
+</div>
 
 <% include ../partials/footer %>

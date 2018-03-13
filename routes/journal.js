@@ -8,14 +8,11 @@ router.get("/companies/:id/journal", function(req, res){
         if(err){
             console.log(err);
         } else {
-            // Journal.findById(foundCompany.journal )
-            // res.render("/companies/" + req.params.id + "/journal")
-            // res.render("companies/show", {company: foundCompany});   
             Journal.findById(foundCompany.journal).exec(function(err, foundJournal){
                if(err) {
                    console.log(err);
                } else {
-                    res.render("journal/show", {journal: foundJournal});       
+                    res.render("journal/show", {journal: foundJournal, company: foundCompany});       
                }
             });
             

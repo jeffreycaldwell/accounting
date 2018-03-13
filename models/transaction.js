@@ -2,6 +2,7 @@ var mongoose = require("mongoose");
 var transactionSchema = new mongoose.Schema({
     description: String,
     type: String,
+    postRef: String,
     amount: String
 });
 

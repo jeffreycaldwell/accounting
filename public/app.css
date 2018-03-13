@@ -3,3 +3,17 @@
     width: 1100px;
   }
 }
+
+.journalDescription {
+  width: 50%;
+}
+
+.journalPostRef {
+  width: 10%;
+  text-align: center;
+}
+
+.journalColumn {
+  width: 20%;
+  text-align: right;
+}
