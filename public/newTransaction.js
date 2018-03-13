@@ -11,13 +11,13 @@ $("#addCredits").click(function(event){
     var formStuff = `<div class="row">
                     <div class="col col-sm-1">${num}</div>
                     <div class="col col-sm-6 form-group">
-                        <input class="form-control" type="text" name="credit[description]" placeholder="Credit Description">    
+                        <input class="form-control" type="text" name="credit${num}[description]" placeholder="Credit Description">    
                     </div>
                     <div class="col col-sm-1 form-group">
-                        <input class="form-control" type="text" name="credit[postReference]" placeholder="P Ref.">
+                        <input class="form-control" type="text" name="credit${num}[postReference]" placeholder="P Ref.">
                     </div>
                     <div class="col col-sm-2 form-group">
-                        <input class="form-control MoneyAmounts Credit" type="text" name="credit[amount]" placeholder="Credit Amount">
+                        <input class="form-control MoneyAmounts Credit" type="text" name="credit${num}[amount]" placeholder="Credit Amount">
                     </div>
                     <div class="col col-sm-2 MoneyOuts"></div>
                 </div>
