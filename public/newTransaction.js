@@ -4,6 +4,10 @@ var credits;
 // Is our total credits equal to our debit?
 var matchedValues = false;
 
+
+
+
+
 // When the add credits button is pressed, add the correct html for a new credit.
 $("#addCredits").click(function(event){
     var num = parseInt($("#numberOfCredits").html(), 10);
@@ -13,8 +17,20 @@ $("#addCredits").click(function(event){
                     <div class="col col-sm-6 form-group">
                         <input class="form-control" type="text" name="credit${num}[description]" placeholder="Credit Description">    
                     </div>
-                    <div class="col col-sm-1 form-group">
-                        <input class="form-control" type="text" name="credit${num}[postReference]" placeholder="P Ref.">
+                    <div class="col col-sm-2 form-group">
+                        <select class="form-control" name="credit[postReference]">`;
+    
+    parsedCompany.accounts.forEach(function(account){
+                                formStuff += `<option value="`;
+                                formStuff += account.id;
+                                formStuff += `">`;
+                                formStuff += account.name;
+                                formStuff += " - ";
+                                formStuff += account.reference;
+                                formStuff += `</option>`;
+                                
+                            });
+    formStuff += `</select>
                     </div>
                     <div class="col col-sm-2 form-group">
                         <input class="form-control MoneyAmounts Credit" type="text" name="credit${num}[amount]" placeholder="Credit Amount">

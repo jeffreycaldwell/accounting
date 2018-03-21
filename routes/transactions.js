@@ -3,11 +3,12 @@ var router = express.Router();
 var Company = require("../models/company");
 
 router.get("/companies/:id/journal/transactions/new", function(req, res){
-    Company.findById(req.params.id, function(err, company){
+    //Company.findById(req.params.id, function(err, company){
+    Company.findById(req.params.id).populate("accounts").exec(function(err, foundCompany){
        if(err) {
            console.log(err);
        } else {
-           res.render("transactions/new", {company: company});
+           res.render("transactions/new", {company: foundCompany});
        }
     });
 });

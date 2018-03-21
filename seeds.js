@@ -2,6 +2,7 @@
     var Company = require("./models/company");
     var Journal = require("./models/journal");
     var Comment   = require("./models/comment");
+    var Account   = require("./models/account");
     
     
      
@@ -55,26 +56,32 @@
                         console.log(err);
                     }
                     console.log("removed journals!");
+                    Account.remove({}, function(err) {
+                    if(err){
+                        console.log(err);
+                    }
+                    console.log("removed accounts!");
                     //add a few companies
-                    data.forEach(function(seed){
-                        Company.create(seed, function(err, company){
-                            if(err){
-                                console.log(err)
-                            } else {
-                                console.log("added a company");
-                                var newJournal = {name: company.name, balance: company.balance};
-                                Journal.create(newJournal, function(err, newlyCreatedJournal){
-                                    if(err){
-                                        console.log("Error creating journal.");
-                                    } else {
-                                        console.log(newlyCreatedJournal.name);
-                                        company.journal = newlyCreatedJournal;
-                                        company.save();
-                                   }
-                               });
+                    // data.forEach(function(seed){
+                    //     Company.create(seed, function(err, company){
+                    //         if(err){
+                    //             console.log(err)
+                    //         } else {
+                    //             console.log("added a company");
+                    //             var newJournal = {name: company.name, balance: company.balance};
+                    //             Journal.create(newJournal, function(err, newlyCreatedJournal){
+                    //                 if(err){
+                    //                     console.log("Error creating journal.");
+                    //                 } else {
+                    //                     console.log(newlyCreatedJournal.name);
+                    //                     company.journal = newlyCreatedJournal;
+                    //                     company.save();
+                    //               }
+                    //           });
                                 
-                            }
-                        });
+                    //         }
+                    //     });
+                    // });
                     });
                 });
             });
