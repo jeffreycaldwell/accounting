@@ -32,8 +32,7 @@ var authRoutes = require("./routes/index");
 //////////////////////
 
 // Alternatively you can uncomment this and use a local db.
-// mongoose.connect("mongodb://localhost/accounting");
-console.log(process.env.DATABASEURL);
+mongoose.connect(process.env.DATABASEURL);
 DBConnect.connect();
 
 app.set("view engine", "ejs");
