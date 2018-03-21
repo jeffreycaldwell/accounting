@@ -5,6 +5,7 @@ var mongoose = require("mongoose");
 var Company = require("./models/company");
 var Comment = require("./models/comment");
 var Account = require("./models/account");
+var DBConnect = require("./DBConnect");
 
 var seedDB = require("./seeds");
 
@@ -16,9 +17,10 @@ var userRoutes = require("./routes/users");
 var commentRoutes = require("./routes/comments");
 var authRoutes = require("./routes/index");
 
-
+// MONGOOSE connect string here...
 // mongoose.connect("mongodb://localhost/accounting");
-mongoose.connect("mongodb://bitbrain:Irisflow1@ds121189.mlab.com:21189/accounting");
+DBConnect.connect();
+
 app.set("view engine", "ejs");
 
 app.use(bodyParser.urlencoded({extended: true}));
