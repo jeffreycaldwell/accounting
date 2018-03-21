@@ -18,7 +18,22 @@ var commentRoutes = require("./routes/comments");
 var authRoutes = require("./routes/index");
 
 // MONGOOSE connect string here...
+// To protect my password I've created a file in the current directory named DBConnect.js
+// Complete file content minus login using mlab for the db --
+
+///////////////////////////////////
+// var mongoose = require("mongoose");
+//
+// module.exports = {
+//     connect: function() {
+//         mongoose.connect("mongodb://<user>:<pass>@ds121189.mlab.com:21189/accounting");
+//     }
+// } 
+//////////////////////
+
+// Alternatively you can uncomment this and use a local db.
 // mongoose.connect("mongodb://localhost/accounting");
+console.log(process.env.DATABASEURL);
 DBConnect.connect();
 
 app.set("view engine", "ejs");
