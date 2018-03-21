@@ -17,7 +17,8 @@ var commentRoutes = require("./routes/comments");
 var authRoutes = require("./routes/index");
 
 
-mongoose.connect("mongodb://localhost/accounting");
+// mongoose.connect("mongodb://localhost/accounting");
+mongoose.connect("mongodb://bitbrain:Irisflow1@ds121189.mlab.com:21189/accounting");
 app.set("view engine", "ejs");
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -30,7 +31,7 @@ app.use(userRoutes);
 app.use(commentRoutes);
 app.use(authRoutes);
 
-seedDB();
+//seedDB();
 
 app.listen(process.env.PORT, process.env.IP, function(){
     console.log("Account server has started.");
