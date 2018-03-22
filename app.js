@@ -32,7 +32,7 @@ app.use(userRoutes);
 app.use(commentRoutes);
 app.use(authRoutes);
 
-seedDB();
+//seedDB();
 
 app.listen(process.env.PORT, process.env.IP, function(){
     console.log("Account server has started.");
