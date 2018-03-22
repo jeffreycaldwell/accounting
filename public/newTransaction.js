@@ -14,22 +14,16 @@ $("#addCredits").click(function(event){
     num++;
     var formStuff = `<div class="row">
                     <div class="col col-sm-1">${num}</div>
-                    <div class="col col-sm-6 form-group">
+                    <div class="col col-sm-5 form-group">
                         <input class="form-control" type="text" name="credit${num}[description]" placeholder="Credit Description">    
                     </div>
                     <div class="col col-sm-2 form-group">
-                        <select class="form-control" name="credit[postReference]">`;
+                        <select class="form-control" name="credit${num}[postReference]">`;
     
     parsedCompany.accounts.forEach(function(account){
-                                formStuff += `<option value="`;
-                                formStuff += account.id;
-                                formStuff += `">`;
-                                formStuff += account.name;
-                                formStuff += " - ";
-                                formStuff += account.reference;
-                                formStuff += `</option>`;
-                                
-                            });
+        formStuff += `<option value="${account._id}">${account.name} - ${account.reference}</option>`;
+    });
+    
     formStuff += `</select>
                     </div>
                     <div class="col col-sm-2 form-group">

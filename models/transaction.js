@@ -1,10 +1,12 @@
 var mongoose = require("mongoose");
 var transactionSchema = new mongoose.Schema({
     date: { type: Date, default: Date.now },
-    accountTitle: String,
     description: String,
     type: String,
-    postRef: String,
+    postRef: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Account"
+        },
     amount: String
 });
 

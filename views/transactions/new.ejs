@@ -6,11 +6,11 @@
     
        
             <h1 style="text-align: left;">Add a new Transaction</h1>
-            <form id="transactionForm" action="/companies/:id/journal/transactions" method="POST">
+            <form id="transactionForm" action="/companies/<%= company._id %>/journal/transactions" method="POST">
                 <h3>Debit</h3>
                 <div class="row">
                     <div class="col col-sm-1">1</div>
-                    <div class="col col-sm-6 form-group">
+                    <div class="col col-sm-5 form-group">
                         <input class="form-control" type="text" name="debit[description]" placeholder="Debit Description">    
                     </div>
                     <div class="col col-sm-2 form-group">
@@ -28,7 +28,7 @@
                 <h3>Credits - <span id="numberOfCredits">1</span></h3>
                 <div class="row">
                     <div class="col col-sm-1">1</div>
-                    <div class="col col-sm-6 form-group">
+                    <div class="col col-sm-5 form-group">
                         <input class="form-control" type="text" name="credit[description]" placeholder="Credit Description">    
                     </div>
                     <div class="col col-sm-2 form-group">

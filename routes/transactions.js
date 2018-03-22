@@ -1,6 +1,9 @@
 var express = require("express");
 var router = express.Router();
 var Company = require("../models/company");
+var Transaction = require("../models/transaction");
+var Account = require("../models/account");
+var Journal = require("../models/journal");
 
 router.get("/companies/:id/journal/transactions/new", function(req, res){
     //Company.findById(req.params.id, function(err, company){
@@ -14,31 +17,65 @@ router.get("/companies/:id/journal/transactions/new", function(req, res){
 });
 
 router.post("/companies/:id/journal/transactions", function(req, res){
-    //lookup company using id
-    // Company.findById(req.params.id, function(err, company){
-    //     if(err) {
-    //         console.log(err);
-    //         res.redirect("/companies");
-    //     } else {
-            // Transaction.create(req.body.account, function(err, account){
-            //     if(err) {
-            //         console.log(err);
-            //     } else {
-            //         company.accounts.push(account._id);
-            //         company.save();
-            //         res.redirect("/companies/" + company._id);
-            //     }
-            // });
+    for(var key in req.body) 
+    {
+        if(req.body.hasOwnProperty(key))
+        {
+            var type;
             
-            console.log(Object.keys(req.body).length);
-            console.log(req.body);
+            if(key === "debit") {
+              type = "debit";  
+            } else {
+                type = "credit";
+            }
             
-            res.send("Ok");
-        //}
-   // });
-    // create new comment
-    // connect new comment to company
-    //redirect company show page
+            var newTransaction = {  
+                                    description: req.body[key].description, 
+                                    type : type, 
+                                    postRef: req.body[key].postReference, 
+                                    amount: req.body[key].amount
+            }
+                    
+            Transaction.create(newTransaction, function(err, newlyCreatedTransaction){
+                if(err) {
+                  console.log(err);
+                  console.log("Transaction not successful.");
+                  res.redirect("/companies/" + req.params.id + "/journal");
+                } else {
+                  newlyCreatedTransaction.save();
+                   
+                   Company.findById(req.params.id, function(err, company) {
+                  
+                        if(err) {
+                            console.log(err);
+                            //res.redirect("/companies/" + req.params.id + "/journal");
+                        } else {
+                            Journal.findById(company.journal, function(err, journal){
+                                if(err) {
+                                    console.log(err);
+                                } else {
+                                  journal.transactions.push(newlyCreatedTransaction._id);
+                                    journal.save();
+                                }
+                            });
+                        }
+                   });
+                   
+                    Account.findById(req.body[key].postReference, function(err, account) {
+                        if(err) {
+                            console.log(err);
+                            //res.redirect("/companies/" + req.params.id + "/journal");
+                        } else {
+                          account.transactions.push(newlyCreatedTransaction._id);
+                          account.save();
+                        }
+                    });
+                }
+            });
+        }
+    }
+    
+    res.redirect("/companies/" + req.params.id + "/journal");
 });
 
 module.exports = router;
