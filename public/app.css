@@ -17,3 +17,17 @@
   width: 20%;
   text-align: right;
 }
+
+.ledgerDescription {
+  width: 50%;
+}
+
+.ledgerPostRef {
+  width: 10%;
+  text-align: center;
+}
+
+.ledgerColumn {
+  width: 20%;
+  text-align: right;
+}

@@ -1,11 +1,9 @@
 <% include ../partials/header %>
 
 <div class="container">
-<h1>Show template</h1>
+<h1><%= company.name %></h1>
 
-<p>
-    <%= company.name %>
-</p>
+
 
 <p>
     <%= company.balance %>
@@ -22,17 +20,19 @@
     <a class="btn btn-success" href="/companies/<%= company._id %>/journal">View journal.</a>
 </p>
 
-<p>
-    <a class="btn btn-success" href="/companies/<%= company._id %>/accounts/new">Add new account.</a>
-</p>
+
 
 <% company.accounts.forEach(function(account){ %>
     <p>
-        <strong>
-            <%= account.name %>
-        </strong> - <%= account.balance %></p>
+        <a class="" href="/companies/<%= company._id %>/accounts/<%= account._id %>">
+            <%= account.name %> - <%= account.balance %>
+        </a>
     
 <% }); %>
+
+<p>
+    <a class="btn btn-success" href="/companies/<%= company._id %>/accounts/new">Add new account.</a>
+</p>
 
 <!--<% company.comments.forEach(function(comment){ %>-->
 <!--    <p>-->
@@ -42,7 +42,9 @@
     
 <!--<% }); %>-->
 
+<a class="btn btn-success" href="/companies">Back</a>
 </div>
+
 
 
 

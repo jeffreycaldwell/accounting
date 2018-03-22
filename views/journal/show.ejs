@@ -1,9 +1,7 @@
 <% include ../partials/header %>
 
 <div class="container">
-    <h1>Show journal page</h1>
-    <!--<h2>Journal name is: <%= journal.name %></h2>-->
-    <!--<%= journal.balance %>-->
+    <h1><%= journal.name %> Journal</h1>
 </div>
     
 <div class="container">
@@ -18,18 +16,24 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td class="journalDescription" scope="col">I got some money</td>
-                <td class="journalPostRef" scope="col">100</td>
-                <td class="journalColumn" scope="col">1300.00</td>
-                <td class="journalColumn" scope="col"></td>
-            </tr>
-            <tr>
-                <td class="journalDescription" scope="col">You lost some money</td>
-                <td class="journalPostRef" scope="col">105</td>
-                <td class="journalColumn" scope="col"></td>
-                <td class="journalColumn" scope="col">(1300.00)</td>
-            </tr>
+            <% journal.transactions.forEach(function(transaction){ %>
+                <tr>
+                    <td class="journalDescription" scope="col"><%= transaction.description %></td>
+                    <td class="journalPostRef" scope="col"><%= transaction.postRef %></td>
+                    <td class="journalColumn" scope="col"><% if(transaction.type === "debit") {%>$
+                    <%= Number(transaction.amount).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') %>
+                    <% } else { %>
+                    0.00
+                    <% } %>
+                    </td>
+                    <td class="journalColumn" scope="col"><% if(transaction.type === "credit") {%>$
+                    <%= Number(transaction.amount).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') %>
+                    <% } else { %>
+                    0.00
+                    <% } %>
+                    </td>
+                </tr>
+            <% }); %>
         </tbody>
     </table>
     <a class="btn btn-success" href="/companies/<%= company._id %>/journal/transactions/new">Add new transaction.</a>

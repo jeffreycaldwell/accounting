@@ -1,0 +1,42 @@
+<% include ../partials/header %>
+
+<div class="container">
+    <h1>Ledger</h1>
+    <h2><%= account.name %></h2>
+</div>
+    
+<div class="container">
+    
+    <table class="table table-striped table-bordered journal">
+        <thead class="thead-dark">
+            <tr>
+                <th class="ledgerDescription" scope="col">Description</th>
+                <th class="ledgerPostRef" scope="col">Post Ref.</th>
+                <th style="text-align: center;" class="journalColumn" scope="col">Debit</th>
+                <th style="text-align: center;" class="journalColumn" scope="col">Credit</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% account.transactions.forEach(function(transaction){ %>
+                <tr>
+                    <td class="ledgerDescription" scope="col"><%= transaction.description %></td>
+                    <td class="ledgerPostRef" scope="col"><%= transaction.postRef %></td>
+                    <td class="ledgerColumn" scope="col"><% if(transaction.type === "debit") {%>$
+                    <%= Number(transaction.amount).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') %>
+                    <% } else { %>
+                    $ 0.00
+                    <% } %>
+                    </td>
+                    <td class="ledgerColumn" scope="col"><% if(transaction.type === "credit") {%>$
+                    <%= Number(transaction.amount).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') %>
+                    <% } else { %>
+                    $ 0.00
+                    <% } %>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</div>
+
+<% include ../partials/footer %>

@@ -36,4 +36,15 @@ router.post("/companies/:id/accounts", function(req, res){
     //redirect company show page
 });
 
+router.get("/companies/:companyid/accounts/:accountid", function(req, res){
+   Account.findById(req.params.accountid).populate("transactions").exec(function(err, foundAccount){
+        if(err){
+            console.log(err);
+        } else {
+            
+            res.render("accounts/show", {account: foundAccount});    
+        }
+    });
+});
+
 module.exports = router;
