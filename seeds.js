@@ -3,6 +3,7 @@
     var Journal = require("./models/journal");
     var Comment   = require("./models/comment");
     var Account   = require("./models/account");
+    var Transaction = require("./models/transaction");
     
     
      
@@ -61,6 +62,11 @@
                         console.log(err);
                     }
                     console.log("removed accounts!");
+                    Transaction.remove({}, function(err) {
+                    if(err){
+                        console.log(err);
+                    }
+                    console.log("removed transactions!");
                     //add a few companies
                     // data.forEach(function(seed){
                     //     Company.create(seed, function(err, company){
@@ -81,7 +87,7 @@
                                 
                     //         }
                     //     });
-                    // });
+                     });
                     });
                 });
             });

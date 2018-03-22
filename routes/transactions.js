@@ -29,22 +29,31 @@ router.post("/companies/:id/journal/transactions", function(req, res){
                 type = "credit";
             }
             
-            var newTransaction = {  
-                                    description: req.body[key].description, 
-                                    type : type, 
-                                    postRef: req.body[key].postReference, 
-                                    amount: req.body[key].amount
-            }
-                    
+            var newTransaction = {  description: req.body[key].description, type : type, postRef: req.body[key].postReference, amount: req.body[key].amount };
+            
             Transaction.create(newTransaction, function(err, newlyCreatedTransaction){
                 if(err) {
                   console.log(err);
-                  console.log("Transaction not successful.");
                   res.redirect("/companies/" + req.params.id + "/journal");
                 } else {
-                  newlyCreatedTransaction.save();
-                   
-                   Company.findById(req.params.id, function(err, company) {
+                    newlyCreatedTransaction.save();
+                    
+                    AddToJournal(req.params.id, newlyCreatedTransaction);
+                    
+                    console.log(newlyCreatedTransaction.postRef);
+                    AddToAccount(newlyCreatedTransaction.postRef, newlyCreatedTransaction);
+                    
+                }
+            });
+        }
+    }
+    
+    res.redirect("/companies/" + req.params.id + "/journal");
+});
+
+function AddToJournal(companyID, createdTransaction)
+{
+    Company.findById(companyID, function(err, company) {
                   
                         if(err) {
                             console.log(err);
@@ -54,28 +63,26 @@ router.post("/companies/:id/journal/transactions", function(req, res){
                                 if(err) {
                                     console.log(err);
                                 } else {
-                                  journal.transactions.push(newlyCreatedTransaction._id);
+                                  journal.transactions.push(createdTransaction);
                                     journal.save();
                                 }
                             });
                         }
                    });
-                   
-                    Account.findById(req.body[key].postReference, function(err, account) {
+}
+
+function AddToAccount(accountReference, createdTransaction)
+{
+    Account.findById(accountReference, function(err, account) {
                         if(err) {
                             console.log(err);
                             //res.redirect("/companies/" + req.params.id + "/journal");
                         } else {
-                          account.transactions.push(newlyCreatedTransaction._id);
+                            
+                          account.transactions.push(createdTransaction);
                           account.save();
                         }
                     });
-                }
-            });
-        }
-    }
-    
-    res.redirect("/companies/" + req.params.id + "/journal");
-});
+}
 
 module.exports = router;
