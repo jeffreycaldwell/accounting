@@ -16,7 +16,6 @@ var userRoutes = require("./routes/users");
 var commentRoutes = require("./routes/comments");
 var authRoutes = require("./routes/index");
 
-
 // MongoDB connect string
 mongoose.connect(process.env.DATABASEURL);
 

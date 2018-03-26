@@ -13,18 +13,22 @@
     
     
     
-    <div class="row" style="display:flex; flex-wrap: wrap;">
+    <div class="row text-center" style="display:flex; flex-wrap: wrap;">
         <% companies.forEach(function(company){ %>
             <div class="col-md-3 col-sm-6">
-                <h4>Name: <%= company.name %></h4>
-                <h5>Balance: <%= company.balance %></h5>
-                <p>
-                <a href="/companies/<%= company._id %>" class="btn btn-primary">Details</a>
-            </p>
+                <div class="thumbnail">
+                    <img src="https://www.bitbrainsolutions.net/helloquence-51716-unsplash.jpg">
+                    <div class="caption">
+                        <h4><%= company.name %></h4>
+                        <a href="/companies/<%= company._id %>/journal" class="btn btn-primary">Journal</a>
+                        <a href="/companies/<%= company._id %>" class="btn btn-primary">Ledger</a>
+                    </div>
+                </div>
             </div>
-            
         <% }); %>
     </div>
+    
+    
     
     
     
