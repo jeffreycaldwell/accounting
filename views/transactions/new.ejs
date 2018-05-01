@@ -4,55 +4,74 @@
 
 <div class="container">
     
-       
-            <h1 style="text-align: left;">Add a new Transaction</h1>
-            <form id="transactionForm" action="/companies/<%= company._id %>/journal/transactions" method="POST">
-                <h3>Debit</h3>
-                <div class="row">
-                    <div class="col col-sm-1">1</div>
-                    <div class="col col-sm-5 form-group">
-                        <input class="form-control" type="text" name="debit[description]" placeholder="Debit Description">    
-                    </div>
-                    <div class="col col-sm-2 form-group">
-                        <select class="form-control" name="debit[postReference]">
-                            <% company.accounts.forEach(function(account){ %>
-                                <option value="<%= account._id %>"><%= account.name %> - <%= account.reference %></option>
-                            <% }); %>
-                        </select>
-                    </div>
-                    <div class="col col-sm-2 form-group">
-                        <input class="form-control MoneyAmounts Debit" type="text" name="debit[amount]" placeholder="Debit Amount">
-                    </div>
-                    <div class="col MoneyOuts col-sm-2"></div>
+    <h1 style="text-align: left;">Add a new Transaction</h1>
+        <form id="transactionForm" action="/companies/<%= company._id %>/journal/transactions" method="POST">
+            
+            <div class="row">
+                <div class="col col-sm-1 form-group">
+                    <h3>Date:</h3>
                 </div>
-                <h3>Credits - <span id="numberOfCredits">1</span></h3>
-                <div class="row">
-                    <div class="col col-sm-1">1</div>
-                    <div class="col col-sm-5 form-group">
-                        <input class="form-control" type="text" name="credit[description]" placeholder="Credit Description">    
-                    </div>
-                    <div class="col col-sm-2 form-group">
-                        <select class="form-control" name="credit[postReference]">
-                            <% company.accounts.forEach(function(account){ %>
-                                <option value="<%= account._id %>"><%= account.name %> - <%= account.reference %></option>
-                            <% }); %>
-                        </select>
-                    </div>
-                    <div class="col col-sm-2 form-group">
-                        <input class="form-control MoneyAmounts Credit" type="text" name="credit[amount]" placeholder="Credit Amount">
-                    </div>
-                    <div class="col MoneyOuts col-sm-2"></div>
+                <div class="col col-sm-2 form-group">
+                    <input class="form-control text-center" type="date" name="general[date]">
                 </div>
-                <div id="credits"></div>
+                <div class="col form-group">
+                    <input class="form-control" type="text" name="general[description]" placeholder="Description">    
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col col-sm-1 form-group">
+                    <h3>Debit:</h3>
+                </div>
                 
-                <div class="form-group">
-                    <button class="btn btn-lg btn-primary btn-block col-sm-2">Submit</button>
+                <div class="col col-sm-2 form-group">
+                    <select class="form-control" name="debit[postReference]">
+                        <% company.accounts.forEach(function(account){ %>
+                            <option value="<%= account._id %>"><%= account.name %> - <%= account.reference %></option>
+                        <% }); %>
+                    </select>
                 </div>
-            </form>
-            <button id="addCredits" class="btn btn-primary btn-warning">Add a Credit</button>
+                
+                <div class="col col-sm-2 form-group">
+                    <input class="form-control MoneyAmounts Debit" type="text" name="debit[amount]" placeholder="Debit Amount">
+                </div>
+                
+                <div class="col MoneyOuts col-sm-2">
+                    
+                </div>
+            </div>
+            
+            <h3>Credits - <span id="numberOfCredits">1</span></h3>
+            <div class="row">
+                <div class="col col-sm-1">1</div>
+                <div class="col col-sm-2 form-group">
+                    <select class="form-control" name="credit[postReference]">
+                        <% company.accounts.forEach(function(account){ %>
+                            <option value="<%= account._id %>"><%= account.name %> - <%= account.reference %></option>
+                        <% }); %>
+                    </select>
+                </div>
+                <div class="col col-sm-2 form-group">
+                    <input class="form-control MoneyAmounts Credit" type="text" name="credit[amount]" placeholder="Credit Amount">
+                </div>
+                <div class="col MoneyOuts col-sm-2"></div>
+            </div>
+            <div id="credits"></div>
+            
+            <div class="row">
+                <div class="col col-sm-2 form-group">
+                    <button class="btn btn-lg btn-primary btn-block">Submit</button>
+                </div>
+                
+            </div>
             
             
-            <a href="/companies">Back</a>
+        </form>
+        <div class="col col-sm-2 form-group">
+                    <a class="btn btn-lg btn-primary btn-block" href="/companies">Back</a>    
+                </div>
+        <button id="addCredits" class="btn btn-primary btn-warning">Add a Credit</button>
+        
        
         
     

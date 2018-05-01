@@ -21,30 +21,33 @@ router.post("/companies/:id/journal/transactions", function(req, res){
     {
         if(req.body.hasOwnProperty(key))
         {
-            var type;
-            
-            if(key === "debit") {
-              type = "debit";  
+            if(key === "general") {
+              
             } else {
-                type = "credit";
+            
+                console.log("key / type success");
+                
+                var newTransaction = {  description: req.body["general"].description, type : key, postRef: req.body[key].postReference, amount: req.body[key].amount };
+                console.log("Testing: " + newTransaction.description);
+                console.log("Testing: " + newTransaction.type);
+                console.log("Testing: " + newTransaction.postRef);
+                console.log("Testing: " + newTransaction.amount);
+                
+                Transaction.create(newTransaction, function(err, newlyCreatedTransaction){
+                    if(err) {
+                      console.log(err);
+                      res.redirect("/companies/" + req.params.id + "/journal");
+                    } else {
+                        newlyCreatedTransaction.save();
+                        
+                        AddToJournal(req.params.id, newlyCreatedTransaction);
+                        
+                        console.log(newlyCreatedTransaction.postRef);
+                        AddToAccount(newlyCreatedTransaction.postRef, newlyCreatedTransaction);
+                        
+                    }
+                });
             }
-            
-            var newTransaction = {  description: req.body[key].description, type : type, postRef: req.body[key].postReference, amount: req.body[key].amount };
-            
-            Transaction.create(newTransaction, function(err, newlyCreatedTransaction){
-                if(err) {
-                  console.log(err);
-                  res.redirect("/companies/" + req.params.id + "/journal");
-                } else {
-                    newlyCreatedTransaction.save();
-                    
-                    AddToJournal(req.params.id, newlyCreatedTransaction);
-                    
-                    console.log(newlyCreatedTransaction.postRef);
-                    AddToAccount(newlyCreatedTransaction.postRef, newlyCreatedTransaction);
-                    
-                }
-            });
         }
     }
     

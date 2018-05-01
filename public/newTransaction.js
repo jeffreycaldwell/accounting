@@ -14,9 +14,6 @@ $("#addCredits").click(function(event){
     num++;
     var formStuff = `<div class="row">
                     <div class="col col-sm-1">${num}</div>
-                    <div class="col col-sm-5 form-group">
-                        <input class="form-control" type="text" name="credit${num}[description]" placeholder="Credit Description">    
-                    </div>
                     <div class="col col-sm-2 form-group">
                         <select class="form-control" name="credit${num}[postReference]">`;
     
