@@ -19,15 +19,15 @@
             <% journal.transactions.forEach(function(transaction){ %>
                 <tr>
                     <td class="journalDescription" scope="col"><%= transaction.description %></td>
-                    <td class="journalPostRef" scope="col"><%= transaction.postRef %></td>
-                    <td class="journalColumn" scope="col"><% if(transaction.type === "debit") {%>$
-                    <%= Number(transaction.amount).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') %>
+                    <td class="journalPostRef" scope="col"><%= transaction.postRef.reference %></td>
+                    <td class="journalColumn" scope="col"><% if(transaction.type === "debit") {%>
+                    <%= Number(transaction.amount).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '1,') %>
                     <% } else { %>
                     0.00
                     <% } %>
                     </td>
-                    <td class="journalColumn" scope="col"><% if(transaction.type === "credit") {%>$
-                    <%= Number(transaction.amount).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') %>
+                    <td class="journalColumn" scope="col"><% if(transaction.type === "credit") {%>
+                    <%= Number(transaction.amount).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '1,') %>
                     <% } else { %>
                     0.00
                     <% } %>

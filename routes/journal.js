@@ -8,10 +8,13 @@ router.get("/companies/:id/journal", function(req, res){
         if(err){
             console.log(err);
         } else {
-            Journal.findById(foundCompany.journal).populate("transactions").exec(function(err, foundJournal){
+            Journal.findById(foundCompany.journal).populate({
+                path: "transactions",
+                populate: {path: "postRef"}}).exec(function(err, foundJournal){
                if(err) {
                    console.log(err);
                } else {
+                   
                     res.render("journal/show", {journal: foundJournal, company: foundCompany});       
                }
             });
