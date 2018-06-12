@@ -2,7 +2,7 @@
 
 This is an accounting system.  My memory of accounting is somewhat foggy and will hopefully resolve over the time I spend working on it.  It's intended only as a learning project and not for real world use.
 
-It is a website built on the mean stack (minus angular). Node, express, mongoose.  Also, bootstrap.
+It is a website built on the MEAN stack (minus angular). Node, express, mongoose.  Also, bootstrap.
 
 
 * Login stuff
